@@ -9,9 +9,9 @@ export default class Cenario {
 
     constructor(urlImagem, largura=undefined, altura=undefined){
         this.armazenamento = new Armazenamento();
-        this.imagem = this.armazenamento.pegar(urlImagem);
+        // this.imagem = this.armazenamento.pegar(urlImagem);
           
-        this.altura = altura == undefined ? this.imagem.naturalHeight : altura;
-        this.largura = largura == undefined ? this.imagem.naturalWidth : largura;
+        // this.altura = altura == undefined ? this.imagem.naturalHeight : altura;
+        // this.largura = largura == undefined ? this.imagem.naturalWidth : largura;
         }
     }

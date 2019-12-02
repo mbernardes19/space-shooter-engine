@@ -9,6 +9,10 @@ export default class Cena {
     ondaAtual;
     constructor() {}
 
+    adicionarJogador(jogador) {
+        this.jogador = jogador;
+        this.objetos.push(jogador);
+    }
     adicionarObjeto(objeto) {
         this.objetos.push(objeto);
     }

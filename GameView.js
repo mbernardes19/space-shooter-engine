@@ -24,7 +24,7 @@ export default class GameView {
      */
     atualizar(model) {
         this.model = model;
-        // this.canvasCtx.clearRect(0,0,this.CANVAS_WIDTH, this.CANVAS_HEIGHT);
+        this.canvasCtx.clearRect(0,0,this.CANVAS_WIDTH, this.CANVAS_HEIGHT);
         this.renderizarCena(this.model.cenaAtual);
         // this.renderizarCenario(this.model.cenaAtual.cenario);
     }
@@ -49,10 +49,9 @@ export default class GameView {
      * @param {Cena} cena 
      */
     renderizarCena(cena) {
-        cena.objetos.forEach(objeto => {
-            this.canvasCtx.drawImage(objeto.sprite.imagem,objeto.x, objeto.y);
-            console.log(objeto)
-        })
+        cena.objetos.forEach(obj => {
+            this.canvasCtx.drawImage(obj.sprite.imagem,obj.x,obj.y)
+        });
     }
 
     reproduzirAnimacao(idObjeto, idAnimacao) {

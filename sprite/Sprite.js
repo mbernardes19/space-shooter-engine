@@ -7,13 +7,16 @@ export default class Sprite {
    * @param {number} largura 
    * @param {number} altura 
    */
-  constructor(urlImagem, largura = 32,altura = 32) {
-    if (!urlImagem) {
-      throw new Error('Sprite deve ter o parâmetro `urlImagem` preenchido');
+  constructor(idImagem, largura = 32,altura = 32) {
+    if (!idImagem) {
+      throw new Error('Sprite deve ter o parâmetro `idImagem` preenchido');
     }
     this.armazenamento = new Armazenamento();
-    this.imagem = this.armazenamento.pegar(urlImagem);
-    this.altura = altura == undefined ? this.imagem.naturalHeight : altura;
-    this.largura = largura == undefined ? this.imagem.naturalWidth : largura;
+    this.armazenamento.pegarImagem(idImagem)
+      .then((imagem) => {
+        this.imagem = imagem;
+        this.altura = altura == undefined ? this.imagem.naturalHeight : altura;
+        this.largura = largura == undefined ? this.imagem.naturalWidth : largura;
+      })
   }
 }

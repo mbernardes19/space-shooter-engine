@@ -28,9 +28,8 @@ export default class Game {
     }
 
     iniciar() {
-        while(!this.gameOver && !this.pausado) {
-            this.controller._gameLoop();
-        }
+        console.log('Jogo rodando!')
+        this.controller._gameLoop();
     }
 
     pausar() {
@@ -47,30 +46,5 @@ export default class Game {
 
     resetar() {
         this.gameOver = false;
-    }
-
-    async pegarImagem(urlImagem) {
-        const novaImagem = new Image();
-        novaImagem.src = urlImagem;
-        await this.carregarImagem(urlImagem)
-                .then(img => {
-                    console.log('Imagem carregada!');
-                    this.armazenamento.guardar(urlImagem, img);
-                    return true;
-                })
-                .catch(err => {
-                    throw err
-                })
-    }
-
-    carregarImagem(urlImagem) {
-       return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.addEventListener('load', e => resolve(img))
-        img.addEventListener('error', () => {
-            reject(new Error('Imagem para Sprite não encontrada na url '+ '"' + urlImagem+ '"' +' . Verifique o argumento passado pelo parâmetro `urlImagem`'))
-        })
-        img.src = urlImagem;
-       });
     }
 }

@@ -4,7 +4,10 @@ import GameView from './GameView.js';
 import Game from './Game.js';
 import Sprite from './sprite/Sprite.js';
 import Objeto from './cena/Objeto.js';
+import Armazenamento from './utilidades/Armazenamento.js';
+import InputHandler from './utilidades/InputHandler.js';
 
+let imagensCarregadas = false;
 // Setar contexto 2d do canvas
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -12,21 +15,37 @@ const ctx = canvas.getContext('2d');
 // Criar jogo com o contexto do canvas
 const game = new Game(ctx);
 
+game.armazenamento.carregarImagem('tiro', './sprites/tiro1.png');
+game.armazenamento.carregarImagem('nave1', './sprites/nave1.png');
+game.armazenamento.carregarImagem('inimigo1', './sprites/inimigo1.png');
+game.armazenamento.carregarImagem('images', './spritesheets/images.png');
 
-// RESOLVER PROBLEMAS DE ASSINCRONICIDADE NO CARREGAMENTO DAS IMAGENS
-const img1 = game.pegarImagem('./sprites/tiro1.png');
-const img2 = game.pegarImagem('./sprites/nave1.png');
-const img3 = game.pegarImagem('./sprites/inimigo1.png');
-const img4 = game.pegarImagem('./spritesheets/images.png');
+game.armazenamento.carregarImagens()
+    .then(() => game.iniciar())
+
+
 
 // Criar cena a partir de configuração
 game.model.cenaAtual = game.model.criarCenaAPartirDeConfiguracao(1);
 
 // Criar jogador e inserir na cena
-const spriteJogador = new Sprite('./sprites/nave1.png')
+const spriteJogador = new Sprite('nave1');
 const jogador = new Personagem(spriteJogador);
-game.model.cenaAtual.adicionarObjeto(jogador);
+game.model.setJogador(jogador);
+game.model.cenaAtual.adicionarJogador(jogador);
 
+// Criar inimigo e inserir na cena
+const spriteInimigo1 = new Sprite('inimigo1');
+const inimigo = new Personagem(spriteInimigo1);
+inimigo.x = 500;
+inimigo.y = 300;
+game.model.cenaAtual.adicionarObjeto(inimigo);
 
-// Iniciar Jogo
-game.iniciar();
+// Criar tecla de input e associar a um nome de comando
+game.controller.inputHandler.adicionarTeclaInput('a', 'atacar');
+
+// Criar um comando e adicionar na lista de comandos
+game.controller.adicionarComando('atacar',() => {
+    game.model.jogador.x += game.model.jogador.velocidadeX*20;
+})
+

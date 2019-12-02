@@ -19,8 +19,12 @@ export default class GameController {
         this.view = view;
         this.model = model;
         this.comandos = new Map();
-        this.input = new InputHandler();
-        this._tratarInput();
+        this.inputHandler = new InputHandler();
+
+        this.inputHandler.adicionarTeclaInput('ArrowUp', InputHandler.CIMA);
+        this.inputHandler.adicionarTeclaInput('ArrowDown', InputHandler.BAIXO);
+        this.inputHandler.adicionarTeclaInput('ArrowRight', InputHandler.DIREITA);
+        this.inputHandler.adicionarTeclaInput('ArrowLeft', InputHandler.ESQUERDA);
 
         this.adicionarComando('direita',() => this.model.jogador.x += this.model.jogador.velocidadeX)
         this.adicionarComando('esquerda',() => this.model.jogador.x -= this.model.jogador.velocidadeX)
@@ -31,15 +35,21 @@ export default class GameController {
      * @private
      * Método privado
      */
-    _tratarInput() {
-        document.addEventListener('cima',() => this.executarComando('cima'));
-        document.addEventListener('baixo',() => this.executarComando('baixo'));
-        document.addEventListener('esquerda',() => this.executarComando('esquerda'));
-        document.addEventListener('direita',() => this.executarComando('direita'));
+
+     adicionarListenerEvento(comando, acao) {
+        document.addEventListener(comando, acao);
+     }
+
+    adicionarListenerEventos() {
+        this.comandos.forEach((acao, comando) => {
+            document.addEventListener(comando, () => this.executarComando(comando));
+        })
     }
+
 
     adicionarComando(idComando, acao) {
         this.comandos.set(idComando, acao);
+        this.adicionarListenerEvento(idComando, acao);
     }
 
     executarComando(idComando) {

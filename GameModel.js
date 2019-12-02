@@ -23,6 +23,10 @@ export default class GameModel {
         this.armazenamento = armazenamento;
     }
 
+    setJogador(jogador) {
+        this.jogador = jogador;
+    }
+    
     pegarCenas() {
         const cenasPegas = this.armazenamento.pegar('cenas');
         this.cenas = cenasPegas;

@@ -6,11 +6,8 @@ export default class InputHandler{
     view;
     /**@type {GameController} */
     controller;
-    teclaAtual
-    cimaEvent = new Event('cima');
-    baixoEvent = new Event('baixo');
-    esquerdaEvent = new Event('esquerda');
-    direitaEvent = new Event('direita');
+    comandoAtual;
+    teclasInput = [];
     /**
      * @param {GameView} view 
      * @param {GameController} controller
@@ -23,25 +20,22 @@ export default class InputHandler{
         })
     }
 
+    adicionarTeclaInput(tecla, comando) {
+        this.teclasInput.push({
+            tecla: tecla,
+            comando: comando,
+            evento: new Event(comando)
+        })
+    }
+
     checkKeyInput(keyEvent) {
-        switch(keyEvent.key) {
-            case "ArrowUp":
-                this.teclaAtual = InputHandler.CIMA;
-                document.dispatchEvent(this.cimaEvent);
-                break;
-            case "ArrowDown":
-                this.teclaAtual = InputHandler.BAIXO;
-                document.dispatchEvent(this.baixoEvent);
-                break;
-            case "ArrowLeft":
-                this.teclaAtual = InputHandler.ESQUERDA;
-                document.dispatchEvent(this.esquerdaEvent);   
-                break;             
-            case "ArrowRight":
-                this.teclaAtual = InputHandler.DIREITA;
-                document.dispatchEvent(this.direitaEvent);     
-                break;                           
-        }
+        this.teclasInput.forEach(teclaInput => {
+            console.log(keyEvent)
+            if (keyEvent.key === teclaInput.tecla) {
+                this.comandoAtual = teclaInput.comando;
+                document.dispatchEvent(teclaInput.evento);
+            }
+        });
     }
 }
 
@@ -49,3 +43,4 @@ InputHandler.CIMA = "cima";
 InputHandler.BAIXO = "baixo";
 InputHandler.ESQUERDA = "esquerda";
 InputHandler.DIREITA = "direita";
+InputHandler.ATACAR = "atacar";
