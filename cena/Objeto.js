@@ -21,6 +21,12 @@ export default class Objeto {
         this.velocidadeX = 10;
     }
 
+    setX(x) {
+        this.x = x;
+    }
+    setY(y) {
+        this.y = y;
+    }
     getXMeio(){
         return this.x + this.meiaLargura;
     }

@@ -28,10 +28,15 @@ export default class InputHandler{
         })
     }
 
+    /**
+     * 
+     * @param {KeyboardEvent} keyEvent 
+     */
     checkKeyInput(keyEvent) {
         this.teclasInput.forEach(teclaInput => {
             console.log(keyEvent)
             if (keyEvent.key === teclaInput.tecla) {
+                keyEvent.preventDefault();
                 this.comandoAtual = teclaInput.comando;
                 document.dispatchEvent(teclaInput.evento);
             }

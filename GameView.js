@@ -1,6 +1,7 @@
 import Cena from "./cena/Cena.js";
 import Cenario from './cenario/Cenario.js';
 import GameModel from "./GameModel.js";
+import Nave from "./cena/Nave.js";
 
 export default class GameView {
     /**@type {CanvasRenderingContext2D} */
@@ -26,6 +27,7 @@ export default class GameView {
         this.model = model;
         this.canvasCtx.clearRect(0,0,this.CANVAS_WIDTH, this.CANVAS_HEIGHT);
         this.renderizarCena(this.model.cenaAtual);
+        this.renderizarTiro(this.model.tiros);
         // this.renderizarCenario(this.model.cenaAtual.cenario);
     }
 
@@ -52,6 +54,17 @@ export default class GameView {
         cena.objetos.forEach(obj => {
             this.canvasCtx.drawImage(obj.sprite.imagem,obj.x,obj.y)
         });
+    }
+    /**
+     * 
+     * @param {Tiro[]} tiros
+     */
+    renderizarTiro(tiros) {
+        if(tiros.length > 1) {
+            tiros.forEach(tiro => {
+                this.canvasCtx.drawImage(tiro.sprite.imagem, tiro.x, tiro.y);    
+            })
+        }
     }
 
     reproduzirAnimacao(idObjeto, idAnimacao) {

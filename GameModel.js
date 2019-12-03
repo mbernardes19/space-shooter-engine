@@ -6,6 +6,7 @@ import Sprite from "./sprite/Sprite.js";
 import Cenario from "./cenario/Cenario.js";
 import Onda from "./cena/Onda.js";
 import {tipos_inimigos} from "./configuracoes/inimigos/tipos_inimigos.js";
+import Tiro from "./cena/Tiro.js";
 
 export default class GameModel {
     /**@type {Cena} */
@@ -16,6 +17,8 @@ export default class GameModel {
     jogador
     /**@type {Armazenamento} */
     armazenamento
+    /**@type {Tiro[]} */
+    tiros = [];
     constructor(armazenamento, cenaAtual=undefined) {
         this.configuracaoCenas = cenariosConfig;
         this.cenaAtual = cenaAtual;

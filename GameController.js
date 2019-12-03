@@ -26,10 +26,10 @@ export default class GameController {
         this.inputHandler.adicionarTeclaInput('ArrowRight', InputHandler.DIREITA);
         this.inputHandler.adicionarTeclaInput('ArrowLeft', InputHandler.ESQUERDA);
 
-        this.adicionarComando('direita',() => this.model.jogador.x += this.model.jogador.velocidadeX)
-        this.adicionarComando('esquerda',() => this.model.jogador.x -= this.model.jogador.velocidadeX)
-        this.adicionarComando('cima',() => this.model.jogador.y -= this.model.jogador.velocidadeY)
-        this.adicionarComando('baixo',() => this.model.jogador.y += this.model.jogador.velocidadeY)
+        this.adicionarComando('direita',() => this.model.jogador.setX(this.model.jogador.x += this.model.jogador.velocidadeX))
+        this.adicionarComando('esquerda',() => this.model.jogador.setX(this.model.jogador.x -= this.model.jogador.velocidadeX))
+        this.adicionarComando('cima',() => this.model.jogador.setY(this.model.jogador.y -= this.model.jogador.velocidadeY))
+        this.adicionarComando('baixo',() => this.model.jogador.setY(this.model.jogador.y += this.model.jogador.velocidadeY))
     }
     /**
      * @private
